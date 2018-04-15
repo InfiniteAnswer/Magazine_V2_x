@@ -487,6 +487,7 @@ void startup_check() {
 }
 
 
+// Send status over Serial link to controller
 void communicate_status(String msg_type) {
 	String msg;
 	comm = HIGH;
@@ -526,6 +527,7 @@ void communicate_status(String msg_type) {
 }
 
 
+// Actions when button is pressed for short time
 void short_press() {
 	button_press(true);
 	setup_cartridges();
@@ -538,6 +540,7 @@ void short_press() {
 }
 
 
+// Actions when button is pressed for long time
 void long_press() {
 	startup_check();
 	setup_cartridges();
@@ -547,6 +550,7 @@ void long_press() {
 }
 
 
+// Perform check to see if chute is in place
 int scan_for_detector_chute() {
 	int value = analogRead(CHUTE_SENS_PIN[8]);
 	int state = LOW;
@@ -565,6 +569,7 @@ int scan_for_detector_chute() {
 }
 
 
+// Perform scan for empty chutes
 int scan_for_empty_chute() {
 	int value;
 	int state = 9;
@@ -594,6 +599,7 @@ int scan_for_empty_chute() {
 }
 
 
+// Refill empty chute
 void refill_empty(int chute_number) {
 	String msg;
 	servoX[chute_number].write(SERVO_PUSH);
@@ -612,6 +618,7 @@ void refill_empty(int chute_number) {
 }
 
 
+// Assign pins at startup
 void assign_pins() {
 	for (int i = 0; i < 8; i++) {
 		pinMode(CARTRIDGE_uSW_PIN[i], INPUT);
@@ -642,6 +649,8 @@ void assign_pins() {
 	}
 }
 
+
+// One time initial setup
 void setup() {
 	delay(1000);
 	Serial.begin(115200);
@@ -658,6 +667,7 @@ void setup() {
 }
 
 
+// Main loop
 void loop() {
 	button_state = digitalRead(BUTTON_PIN);
 	if (button_state == LOW) {
