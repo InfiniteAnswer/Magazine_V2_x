@@ -689,6 +689,7 @@ void loop() {
 	}
 	if ((scan_for_detector_chute() == HIGH) && armed) {
 		armed = false;
+		delay(500);
 		first_empty_chute = scan_for_empty_chute();
 		//    Serial.println(first_empty_chute);
 
